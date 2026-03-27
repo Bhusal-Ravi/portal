@@ -1,11 +1,12 @@
 import {client} from '../connections/db_connection'
 import dotenv from 'dotenv'
+dotenv.config()
 import jwt from 'jsonwebtoken'
 import express from 'express'
-import bcrypt from 'bcrypt'
+
 import { checkUser } from '../queries/user_queries'
 import { User_Type } from '../types/user'
-import { comparePasswordHash, generateHash } from '../service/password_action'
+import { comparePasswordHash } from '../service/password_action'
 const router= express.Router()
 
 const SECRET_KEY= process.env.SECRET_KEY
@@ -41,7 +42,7 @@ router.post('/login', async(req,res)=>{
             id:id,
             name:name,
             email:email
-        },SECRET_KEY!,{expiresIn:'15m'})
+        },SECRET_KEY!,{expiresIn:'1h'})
         
         res.cookie('token',token,{
             httpOnly:true,

@@ -12,10 +12,13 @@ import Login from './components/Login.tsx';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: <App />,
     errorElement:<ErrorFallback/>,
     children: [
-     
+      {
+        index: true,
+        element: <Layout />,
+      },
     ],
   },
   {path:'*',

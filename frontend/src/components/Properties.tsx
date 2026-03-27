@@ -8,6 +8,7 @@ function Properties() {
     const [properties, setProperties] = useState<Properties_Type[]>([])
     const [message, setMessage] = useState("")
     const [loading, setLoading] = useState(false)
+    const [favloading,setFavLoading] = useState(false)
     const [hasMore, setHasMore] = useState(true)
     const [offset, setOffset] = useState(0)
 
@@ -52,8 +53,39 @@ function Properties() {
         return () => window.removeEventListener('scroll', handleScroll)
     }, [offset, loading, hasMore])
 
-    function handleFavourite(id:string){
-        
+   async function handleFavourite(id:string,favourite:boolean){
+        try{
+            const option= favourite ?"delete":"add"  
+            setFavLoading(true)
+            const response= await fetch(`${base_url}/api/favourite/${option}`,{
+                method:'PUT',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                credentials:'include',
+                body:JSON.stringify({id:id})
+
+            })
+            const result= await response.json()
+            console.log(result)
+            if(!response.ok){
+                return
+            }
+             setProperties((prev)=>
+            prev.map(item=>
+                item.id===id
+                ?{...item,favourite:!item.favourite}
+                :item
+            )
+        )
+        }catch(error){
+            console.log(error)
+        }finally {
+            setFavLoading(false)
+        }
+
+
+       
     }
 
     return (
@@ -80,9 +112,9 @@ function Properties() {
                             />
                             <div className="absolute top-2 z-10 flex flex-row right-2  group">
                                 <div className="bg-black opacity-70 hidden transform-all duration-200 group-hover:block cursor-pointer px-2 py-1 rounded-sm mr-2">
-                                    <p className="text-white">Add to favourite</p>
+                                    <p className="text-white">{item.favourite===false?"Add to favourite":"Remove from favourite"}</p>
                                 </div>
-                                <button onClick={()=>handleFavourite(item.id)}><HeartPlus className={`mr-1 ${item.favourite===true?"fill-red-500":''}  group-hover:scale-120 transform-all duration-200 cursor-pointer bg-white rounded-full h-7 w-7 p-1`}/></button>
+                                <button disabled={favloading} onClick={()=>handleFavourite(item.id,item.favourite)}><HeartPlus className={`mr-1 ${item.favourite===true?"fill-red-500":''}  group-hover:scale-120 transform-all duration-200 cursor-pointer bg-white rounded-full h-7 w-7 p-1`}/></button>
                             </div>
                             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                             <span className="absolute bottom-3 left-3 text-white text-xs font-medium bg-black/40 backdrop-blur-sm px-2.5 py-1 rounded-full">
