@@ -7,9 +7,9 @@ const { Pool, Client } = pg
 export const client = new Pool()
 
 client.query('SELECT NOW()', (err, res) => {
-  try{
-    console.log('Db connected successfully')
-  }catch(error){
-    console.log(error)
+   if (err) {
+    console.error('DB connection failed', err);
+  } else {
+    console.log('DB connected successfully');
   }
-})
+});

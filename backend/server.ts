@@ -2,15 +2,26 @@ import dotenv from 'dotenv'
 dotenv.config()
 import express from 'express'
 import cors from "cors";
-import './connections/db_connection.ts'
+
+import './connections/db_connection'
+import signUpRoute from './routes/sign_up'
+import loginRoute from './routes/login'
+import propertyRoute from './routes/properties_list'
 
 const PORT= process.env.PORT
 if(!PORT) process.exit(1)
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173'
 
 const app= express()
-app.use(cors());
+app.use(cors({
+    origin: CLIENT_URL,
+    credentials: true,
+}));
 app.use(express.json())
 
+app.use('/api',signUpRoute)
+app.use('/api',loginRoute)
+app.use('/api',propertyRoute)
 
 
 app.listen(PORT,()=>{
