@@ -47,7 +47,7 @@ router.put('/favourite/delete',authMiddleware,async(req,res)=>{
         db= await client.connect()
         const {id}= req.body
         const user_id= req.user.id
-
+        
         // const checkUser = await db.query(`${checkPropertyOwner}`,[id])
         // if(checkUser.rowCount===0 || user_id!==checkUser.rows[0].user_id){
         //     return res.status(401).json({message:"Not authorized to perform this action"})

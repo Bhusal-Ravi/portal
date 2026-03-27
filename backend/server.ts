@@ -9,7 +9,8 @@ import signUpRoute from './routes/sign_up'
 import loginRoute from './routes/login'
 import propertyRoute from './routes/properties_list'
 import favouriteRoute from './routes/favourite'
-
+import userRoute from './routes/userinfo'
+ 
 const PORT= process.env.PORT
 if(!PORT) process.exit(1)
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173'
@@ -26,6 +27,7 @@ app.use('/api',signUpRoute)
 app.use('/api',loginRoute)
 app.use('/api',propertyRoute)
 app.use('/api',favouriteRoute)
+app.use('/api',userRoute)
 
 app.listen(PORT,()=>{
     console.log(`Server Started in Port ${PORT}`)

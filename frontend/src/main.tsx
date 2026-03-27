@@ -7,6 +7,9 @@ import ErrorFallback from './components/ErrorFallback.tsx';
 import Pagenotfound from './components/Pagenotfound.tsx';
 import Layout from './components/Layout.tsx';
 import Login from './components/Login.tsx';
+import Addproperty from './components/Addproperty.tsx';
+import Favourites from './components/Favourites.tsx';
+import Yourproperty from './components/Yourproperty.tsx';
 
 
 const router = createBrowserRouter([
@@ -18,6 +21,18 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Layout />,
+      },
+      {
+        path: 'yourproperty',
+        element: <Yourproperty />,
+      },
+      {
+        path: 'favourites',
+        element: <Favourites />,
+      },
+      {
+        path: 'addproperty',
+        element: <Addproperty />,
       },
     ],
   },

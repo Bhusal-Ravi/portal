@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { HeartPlus } from 'lucide-react';
 const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:4000"
 import type { Properties_Type } from '../../types/properties_types'
+import { ToastContainer, toast } from 'react-toastify';
 
 function Properties() {
     const LIMIT = 10
@@ -69,7 +70,17 @@ function Properties() {
             const result= await response.json()
             console.log(result)
             if(!response.ok){
-                return
+                return toast.error(result.message , {
+                                position: "top-right",
+                                autoClose: 5000,
+                                hideProgressBar: true,
+                                closeOnClick: false,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                              
+                                });
             }
              setProperties((prev)=>
             prev.map(item=>
@@ -78,6 +89,19 @@ function Properties() {
                 :item
             )
         )
+
+        toast.success(result.message , {
+                                position: "top-right",
+                                autoClose: 3000,
+                                hideProgressBar: true,
+                                closeOnClick: false,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                              
+                                });
+
         }catch(error){
             console.log(error)
         }finally {
@@ -89,8 +113,20 @@ function Properties() {
     }
 
     return (
-        <div className="max-w-6xl mx-auto px-6 pt-12 pb-20">
-
+        <div className="max-w-6xl mx-auto px-6 pt-20 pb-20">
+                                <ToastContainer
+                    position="top-right"
+                    autoClose={3000}
+                    hideProgressBar={true}
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                    
+                    />
             <div className="mb-10">
                 <p className="text-xs text-gray-400 uppercase tracking-widest mb-1">Explore</p>
                 <h1 className="text-4xl font-semibold text-gray-900 tracking-tight">Properties</h1>
