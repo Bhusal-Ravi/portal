@@ -29,11 +29,11 @@ function Properties() {
             console.log(result)
             if (!response.ok){ 
                 if(response.status===401){
-                    setMessage(result.message)
+                    toast.error(message)
                     navigate('/notauthorized')
                     
                 }
-                  setMessage(result.message)}
+                  toast.error(message)}
             
                
 

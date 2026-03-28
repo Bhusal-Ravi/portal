@@ -44,6 +44,9 @@ router.post('/login',validateLogin, async(req,res)=>{
             name:name,
             email:email
         },SECRET_KEY!,{expiresIn:'1h'})
+
+
+        console.log(process.env.SAME_SITE ,process.env.SECURE)
         
         res.cookie('token',token,{
             httpOnly:true,
