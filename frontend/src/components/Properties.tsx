@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 function Properties() {
     const LIMIT = 10
     const [properties, setProperties] = useState<Properties_Type[]>([])
-    const [message, setMessage] = useState("")
+    
     const [loading, setLoading] = useState(false)
     const [favloading,setFavLoading] = useState(false)
     const [hasMore, setHasMore] = useState(true)
@@ -29,11 +29,12 @@ function Properties() {
             console.log(result)
             if (!response.ok){ 
                 if(response.status===401){
-                    toast.error(message)
+                    toast.error(result.message)
+                
                     navigate('/notauthorized')
                     
                 }
-                  toast.error(message)}
+                  toast.error(result.message)}
             
                
 
