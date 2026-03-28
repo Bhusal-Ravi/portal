@@ -32,10 +32,15 @@ function Favourites() {
           setMessage(result.message)
           navigate('/notauthorized')
         }
-        return setMessage(result.message)
+         setMessage(result.message)
       }
 
       const nextRows: Properties_Type[] = Array.isArray(result.data) ? result.data : []
+      if (nextRows.length === 0) {
+                console.log(hasMore)
+                setHasMore(false)
+                return
+                }
       if (nextRows.length < LIMIT) setHasMore(false)
       setProperties((prev) => [...prev, ...nextRows])
       setOffset((prev) => prev + nextRows.length)

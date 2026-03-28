@@ -47,8 +47,8 @@ router.post('/login',validateLogin, async(req,res)=>{
         
         res.cookie('token',token,{
             httpOnly:true,
-            sameSite:'lax',
-            secure:false
+            sameSite: process.env.SAME_SITE as 'lax' | 'strict' | 'none',
+            secure: process.env.SECURE === 'true'
         })
 
       return  res.status(200).json({message:"Login Succesfull"})

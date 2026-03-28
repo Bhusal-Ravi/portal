@@ -53,6 +53,10 @@ function Navbar() {
         </div>
 
         <div className="flex flex-col p-3 mt-1">
+          <button onClick={() => go('/')} className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors text-left">
+            <Home size={15} className="text-gray-400" />
+            Home
+          </button>
           <button onClick={() => go('/yourproperty')} className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors text-left">
             <Home size={15} className="text-gray-400" />
             Your Properties

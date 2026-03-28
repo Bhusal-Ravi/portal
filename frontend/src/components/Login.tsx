@@ -108,6 +108,7 @@ function validPassword(password:string){
                     <input className="w-full border border-gray-300 rounded-lg px-3 py-2 outline-none focus:border-gray-900" value={password} onChange={(e)=>setPassword(e.target.value)}  type="password" />
                 </div>
                 <button className="w-full bg-black text-white rounded-lg py-2.5 disabled:opacity-60" disabled={loading} onClick={handleLogin}>{loading?"Logging in...":"Login"}</button>
+                <button className="w-full border border-gray-300 text-gray-900 rounded-lg py-2.5" onClick={()=>navigate('/signup')}>Go to Signup</button>
             </div>
         </div>
     </div>

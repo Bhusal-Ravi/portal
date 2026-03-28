@@ -33,9 +33,16 @@ function Properties() {
                     navigate('/notauthorized')
                     
                 }
-               return   setMessage(result.message)}
+                  setMessage(result.message)}
             
+               
+
             const nextRows: Properties_Type[] = Array.isArray(result.data) ? result.data : []
+             if (nextRows.length === 0) {
+                console.log(hasMore)
+                setHasMore(false)
+                return
+                }
             if (nextRows.length < LIMIT) setHasMore(false)
             setProperties((prev) => [...prev, ...nextRows])
             setOffset((prev) => prev + nextRows.length)
@@ -158,7 +165,7 @@ function Properties() {
                 <h1 className="text-4xl font-semibold text-gray-900 tracking-tight">Properties</h1>
             </div>
 
-            {message && <p className="text-sm text-red-500 mb-6">{message}</p>}
+            
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {properties.map((item, index) => (
