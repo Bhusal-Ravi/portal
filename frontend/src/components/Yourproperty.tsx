@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:4000"
 import type { Properties_Type } from '../../types/properties_types'
