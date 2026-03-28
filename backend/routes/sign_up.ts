@@ -1,8 +1,9 @@
 import {client} from '../connections/db_connection'
 import dotenv from 'dotenv'
-import jwt from 'jsonwebtoken'
+dotenv.config()
+
 import express from 'express'
-import bcrypt from 'bcrypt'
+
 
 import { generateHash } from '../service/password_action'
 import { createUser } from '../queries/user_queries'

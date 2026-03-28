@@ -1,5 +1,6 @@
-import {client} from '../connections/db_connection'
+
 import dotenv from 'dotenv'
+dotenv.config()
 import express from 'express'
 import { authMiddleware } from '../middleware/auth'
 const router= express.Router()
@@ -9,7 +10,7 @@ router.get('/user',authMiddleware,async (req,res)=>{
     
     try{
         
-        const user_id= req.user
+        
         const {name,email}= req.user
 
         res.status(200).json({message:"success",data:{name,email}})

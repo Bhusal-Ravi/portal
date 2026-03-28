@@ -1,7 +1,8 @@
 import {client} from '../connections/db_connection'
 import dotenv from 'dotenv'
+dotenv.config()
 import express from 'express'
-import { checkPropertyOwner, deleteFromFavourite, insertIntoFavourite, offsetPropertyQuery } from '../queries/property_query'
+import { deleteFromFavourite, insertIntoFavourite } from '../queries/property_query'
 import { authMiddleware } from '../middleware/auth'
 const router= express.Router()
 
