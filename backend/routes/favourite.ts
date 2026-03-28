@@ -20,7 +20,7 @@ router.put('/favourite/add',authMiddleware,async(req,res)=>{
 
         const insert= await db.query(`${insertIntoFavourite}`,[user_id,id])
         if(insert.rowCount===0){
-             return res.status(401).json({message:"Failed to add property in favourite"})
+               return res.status(500).json({message:"Failed to add property in favourite"})
         }
 
         return res.status(200).json({message:"Successfully added the propery to favourite"})
@@ -29,7 +29,7 @@ router.put('/favourite/add',authMiddleware,async(req,res)=>{
     }catch(error:any){
         console.log(error)
         if(error.code==='23505'){
-            return res.status(401).json({message:"Failed to add property in favourite"})
+            return res.status(409).json({message:"Failed to add property in favourite"})
         }
         return res.status(500).json({message:"Internal Server Error"})
     }finally {
@@ -55,7 +55,7 @@ router.put('/favourite/delete',authMiddleware,async(req,res)=>{
 
         const remove= await db.query(`${deleteFromFavourite}`,[user_id,id])
         if(remove.rowCount===0){
-             return res.status(401).json({message:"Failed to remove property from favourite"})
+               return res.status(404).json({message:"Failed to remove property from favourite"})
         }
 
         return res.status(200).json({message:"Successfully removed the propery from favourite"})
@@ -64,7 +64,7 @@ router.put('/favourite/delete',authMiddleware,async(req,res)=>{
     }catch(error:any){
         console.log(error)
         if(error.code==='23505'){
-            return res.status(401).json({message:"Failed to remove the property from favourite"})
+            return res.status(409).json({message:"Failed to remove the property from favourite"})
         }
         return res.status(500).json({message:"Internal Server Error"})
     }finally {

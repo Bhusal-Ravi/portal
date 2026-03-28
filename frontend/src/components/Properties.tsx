@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { HeartPlus } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
 const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:4000"
 import type { Properties_Type } from '../../types/properties_types'
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,6 +13,7 @@ function Properties() {
     const [favloading,setFavLoading] = useState(false)
     const [hasMore, setHasMore] = useState(true)
     const [offset, setOffset] = useState(0)
+    const navigate= useNavigate()
 
     async function getProperties(nextOffset: number) {
         if (loading || !hasMore) return
@@ -25,8 +27,14 @@ function Properties() {
 
             const result = await response.json()
             console.log(result)
-            if (!response.ok) return setMessage(result.message)
-
+            if (!response.ok){ 
+                if(response.status===401){
+                    setMessage(result.message)
+                    navigate('/notauthorized')
+                    
+                }
+               return   setMessage(result.message)}
+            
             const nextRows: Properties_Type[] = Array.isArray(result.data) ? result.data : []
             if (nextRows.length < LIMIT) setHasMore(false)
             setProperties((prev) => [...prev, ...nextRows])
@@ -34,6 +42,7 @@ function Properties() {
 
         } catch (error) {
             console.log(error)
+            
         } finally {
             setLoading(false)
         }
@@ -70,6 +79,23 @@ function Properties() {
             const result= await response.json()
             console.log(result)
             if(!response.ok){
+                if(response.status===401){
+                    toast.error(result.message , {
+                                    position: "top-right",
+                                    autoClose: 1500,
+                                    hideProgressBar: true,
+                                    closeOnClick: false,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "light",
+                                  
+                                    });
+                    setTimeout(()=>{
+                        navigate('/login')
+                    },800)
+                    return
+                }
                 return toast.error(result.message , {
                                 position: "top-right",
                                 autoClose: 5000,
@@ -152,7 +178,7 @@ function Properties() {
                                 </div>
                                 <button disabled={favloading} onClick={()=>handleFavourite(item.id,item.favourite)}><HeartPlus className={`mr-1 ${item.favourite===true?"fill-red-500":''}  group-hover:scale-120 transform-all duration-200 cursor-pointer bg-white rounded-full h-7 w-7 p-1`}/></button>
                             </div>
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                            <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
                             <span className="absolute bottom-3 left-3 text-white text-xs font-medium bg-black/40 backdrop-blur-sm px-2.5 py-1 rounded-full">
                                 {item.location}
                             </span>

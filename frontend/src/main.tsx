@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+
 import { createRoot } from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './index.css'
@@ -7,9 +7,11 @@ import ErrorFallback from './components/ErrorFallback.tsx';
 import Pagenotfound from './components/Pagenotfound.tsx';
 import Layout from './components/Layout.tsx';
 import Login from './components/Login.tsx';
+import Signup from './components/Signup.tsx';
 import Addproperty from './components/Addproperty.tsx';
 import Favourites from './components/Favourites.tsx';
 import Yourproperty from './components/Yourproperty.tsx';
+import NotAuthorized from './components/NotAuthorized.tsx';
 
 
 const router = createBrowserRouter([
@@ -34,6 +36,7 @@ const router = createBrowserRouter([
         path: 'addproperty',
         element: <Addproperty />,
       },
+      
     ],
   },
   {path:'*',
@@ -42,7 +45,15 @@ const router = createBrowserRouter([
   {
     path:'/login',
     element:<Login/>
-  }
+  },
+  {
+    path:'/signup',
+    element:<Signup/>
+  },
+  {
+        path:'notauthorized',
+        element:<NotAuthorized/>
+      }
 
    
  
@@ -51,9 +62,9 @@ const router = createBrowserRouter([
 ])
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  
      <RouterProvider router={router}/>
-  </StrictMode>,
+  
 )
 
 

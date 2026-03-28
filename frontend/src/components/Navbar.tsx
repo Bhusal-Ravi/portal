@@ -81,7 +81,7 @@ function Navbar() {
             <button onClick={() => setSidebar(prev => !prev)} className="text-gray-400 hover:text-gray-900 transition-colors">
               <Menu size={20} />
             </button>
-            <h1 className="text-sm font-semibold text-gray-900">Assignment</h1>
+            <button onClick={()=>navigate('/')}><h1 className="text-sm font-semibold text-gray-900">Assignment</h1></button>
           </div>
 
           {user && (

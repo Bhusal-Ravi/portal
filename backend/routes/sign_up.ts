@@ -6,10 +6,11 @@ import bcrypt from 'bcrypt'
 
 import { generateHash } from '../service/password_action'
 import { createUser } from '../queries/user_queries'
+import { validateSignup } from '../middleware/validate_signup'
 
 const router= express.Router()
 
-router.post('/signup', async (req,res)=>{
+router.post('/signup',validateSignup, async (req,res)=>{
     let db
     try{
         db= await client.connect()

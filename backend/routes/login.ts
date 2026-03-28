@@ -7,17 +7,18 @@ import express from 'express'
 import { checkUser } from '../queries/user_queries'
 import { User_Type } from '../types/user'
 import { comparePasswordHash } from '../service/password_action'
+import { validateLogin } from '../middleware/validate_login'
 const router= express.Router()
 
 const SECRET_KEY= process.env.SECRET_KEY
 
-router.post('/login', async(req,res)=>{
+router.post('/login',validateLogin, async(req,res)=>{
     let db
     try{
         db=await client.connect()
         const {email,password}= req.body
         if(!email || !password){
-            return res.status(404).json({message:"Required fields are not provided"})
+            return res.status(400).json({message:"Required fields are not provided"})
         }
 
         const user_check= await db.query(`${checkUser}`,[email])
@@ -34,7 +35,7 @@ router.post('/login', async(req,res)=>{
 
         const comparision= await comparePasswordHash (password,db_password_hash)
         if(!comparision){
-            return res.status(404).json({message:"Invalid Credentials"})
+            return res.status(401).json({message:"Invalid Credentials"})
         }
         
 
