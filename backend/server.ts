@@ -14,6 +14,7 @@ import userPropertyRoute from './routes/user_property'
 import userFavouriteRoute from './routes/user_favourite'
 import deletePropertyRoute from './routes/delete_properties'
 import addPropertyRoute from './routes/add_property'
+import healthRoute from './routes/health_check'
 const PORT= process.env.PORT
 if(!PORT) process.exit(1)
 const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:5173'
@@ -35,6 +36,7 @@ app.use('/api',userPropertyRoute)
 app.use('/api',userFavouriteRoute)
 app.use('/api',deletePropertyRoute)
 app.use('/api',addPropertyRoute)
+app.use('/api',healthRoute)
 
 app.listen(PORT,()=>{
     console.log(`Server Started in Port ${PORT}`)
