@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 const base_url = import.meta.env.VITE_BASE_URL || "http://localhost:4000"
+import { ToastContainer, toast } from 'react-toastify';
 
 function Signup() {
     const navigate=useNavigate()
@@ -28,9 +29,10 @@ function Signup() {
                 return setMessage({text:result.message,type:"error"})
             }
 
-            setMessage({text:result.message,type:"success"})
-            navigate('/login')
-
+            toast.success(result.message + "\n Navigating to Login Page")
+            setTimeout(()=>{
+                navigate('/login')
+            },3000)
 
         }catch(error){
             setMessage({text:"Sudden error occured",type:"error"})
@@ -42,7 +44,6 @@ function Signup() {
              },3000)
         }
     }
-
 
       function validEmail(email:string) {
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -107,6 +108,18 @@ function validName(name:string){
 
   return (
     <div className="min-h-screen bg-white px-6 pt-24 pb-10">
+    <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={true}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                />
         <div className="max-w-md mx-auto mb-6">
             <h1 className="text-5xl font-semibold text-gray-900 tracking-tight text-center">Assignment</h1>
         </div>
