@@ -1,7 +1,7 @@
 # Portal App
 
 Video Demo: https://youtu.be/ExyVedMCz3M
-Deployed Link: http://assignment.bhusalravi.com.np
+Deployed Link: https://assignment.bhusalravi.com.np
 
 Simple full-stack property portal with React (frontend) and Express + PostgreSQL (backend).
 
